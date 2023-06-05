@@ -59,7 +59,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_Message_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\rMessage.proto\022\013small_world\"2\n\010SM_Event"
-  "\022\022\n\nevent_type\030\001 \002(\t\022\022\n\nevent_time\030\002 \002(\t"
+  "\022\022\n\nevent_type\030\001 \002(\t\022\022\n\nevent_time\030\002 \002(\004"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_Message_2eproto_deps[1] = {
 };
@@ -111,18 +111,14 @@ SM_Event::SM_Event(const SM_Event& from)
     event_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_event_type(),
       GetArena());
   }
-  event_time_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_event_time()) {
-    event_time_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_event_time(),
-      GetArena());
-  }
+  event_time_ = from.event_time_;
   // @@protoc_insertion_point(copy_constructor:small_world.SM_Event)
 }
 
 void SM_Event::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SM_Event_Message_2eproto.base);
   event_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  event_time_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  event_time_ = PROTOBUF_ULONGLONG(0);
 }
 
 SM_Event::~SM_Event() {
@@ -134,7 +130,6 @@ SM_Event::~SM_Event() {
 void SM_Event::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
   event_type_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  event_time_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void SM_Event::ArenaDtor(void* object) {
@@ -159,14 +154,10 @@ void SM_Event::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      event_type_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      event_time_.ClearNonDefaultToEmpty();
-    }
+  if (cached_has_bits & 0x00000001u) {
+    event_type_.ClearNonDefaultToEmpty();
   }
+  event_time_ = PROTOBUF_ULONGLONG(0);
   _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -191,14 +182,11 @@ const char* SM_Event::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // required string event_time = 2;
+      // required uint64 event_time = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_event_time();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "small_world.SM_Event.event_time");
-          #endif  // !NDEBUG
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          _Internal::set_has_event_time(&has_bits);
+          event_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -242,14 +230,10 @@ failure:
         1, this->_internal_event_type(), target);
   }
 
-  // required string event_time = 2;
+  // required uint64 event_time = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_event_time().data(), static_cast<int>(this->_internal_event_time().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "small_world.SM_Event.event_time");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_event_time(), target);
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_event_time(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -272,9 +256,9 @@ size_t SM_Event::RequiredFieldsByteSizeFallback() const {
   }
 
   if (_internal_has_event_time()) {
-    // required string event_time = 2;
+    // required uint64 event_time = 2;
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
         this->_internal_event_time());
   }
 
@@ -290,9 +274,9 @@ size_t SM_Event::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_event_type());
 
-    // required string event_time = 2;
+    // required uint64 event_time = 2;
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
         this->_internal_event_time());
 
   } else {
@@ -339,8 +323,9 @@ void SM_Event::MergeFrom(const SM_Event& from) {
       _internal_set_event_type(from._internal_event_type());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_event_time(from._internal_event_time());
+      event_time_ = from.event_time_;
     }
+    _has_bits_[0] |= cached_has_bits;
   }
 }
 
@@ -368,7 +353,7 @@ void SM_Event::InternalSwap(SM_Event* other) {
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   event_type_.Swap(&other->event_type_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  event_time_.Swap(&other->event_time_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  swap(event_time_, other->event_time_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SM_Event::GetMetadata() const {

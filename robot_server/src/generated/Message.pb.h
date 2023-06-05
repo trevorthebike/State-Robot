@@ -218,33 +218,17 @@ class SM_Event PROTOBUF_FINAL :
   std::string* _internal_mutable_event_type();
   public:
 
-  // required string event_time = 2;
+  // required uint64 event_time = 2;
   bool has_event_time() const;
   private:
   bool _internal_has_event_time() const;
   public:
   void clear_event_time();
-  const std::string& event_time() const;
-  void set_event_time(const std::string& value);
-  void set_event_time(std::string&& value);
-  void set_event_time(const char* value);
-  void set_event_time(const char* value, size_t size);
-  std::string* mutable_event_time();
-  std::string* release_event_time();
-  void set_allocated_event_time(std::string* event_time);
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  std::string* unsafe_arena_release_event_time();
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  void unsafe_arena_set_allocated_event_time(
-      std::string* event_time);
+  ::PROTOBUF_NAMESPACE_ID::uint64 event_time() const;
+  void set_event_time(::PROTOBUF_NAMESPACE_ID::uint64 value);
   private:
-  const std::string& _internal_event_time() const;
-  void _internal_set_event_time(const std::string& value);
-  std::string* _internal_mutable_event_time();
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_event_time() const;
+  void _internal_set_event_time(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
   // @@protoc_insertion_point(class_scope:small_world.SM_Event)
@@ -260,7 +244,7 @@ class SM_Event PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr event_type_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr event_time_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 event_time_;
   friend struct ::TableStruct_Message_2eproto;
 };
 // ===================================================================
@@ -367,7 +351,7 @@ inline void SM_Event::unsafe_arena_set_allocated_event_type(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:small_world.SM_Event.event_type)
 }
 
-// required string event_time = 2;
+// required uint64 event_time = 2;
 inline bool SM_Event::_internal_has_event_time() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
@@ -376,88 +360,23 @@ inline bool SM_Event::has_event_time() const {
   return _internal_has_event_time();
 }
 inline void SM_Event::clear_event_time() {
-  event_time_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  event_time_ = PROTOBUF_ULONGLONG(0);
   _has_bits_[0] &= ~0x00000002u;
 }
-inline const std::string& SM_Event::event_time() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint64 SM_Event::_internal_event_time() const {
+  return event_time_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 SM_Event::event_time() const {
   // @@protoc_insertion_point(field_get:small_world.SM_Event.event_time)
   return _internal_event_time();
 }
-inline void SM_Event::set_event_time(const std::string& value) {
+inline void SM_Event::_internal_set_event_time(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  event_time_ = value;
+}
+inline void SM_Event::set_event_time(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_event_time(value);
   // @@protoc_insertion_point(field_set:small_world.SM_Event.event_time)
-}
-inline std::string* SM_Event::mutable_event_time() {
-  // @@protoc_insertion_point(field_mutable:small_world.SM_Event.event_time)
-  return _internal_mutable_event_time();
-}
-inline const std::string& SM_Event::_internal_event_time() const {
-  return event_time_.Get();
-}
-inline void SM_Event::_internal_set_event_time(const std::string& value) {
-  _has_bits_[0] |= 0x00000002u;
-  event_time_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void SM_Event::set_event_time(std::string&& value) {
-  _has_bits_[0] |= 0x00000002u;
-  event_time_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:small_world.SM_Event.event_time)
-}
-inline void SM_Event::set_event_time(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000002u;
-  event_time_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:small_world.SM_Event.event_time)
-}
-inline void SM_Event::set_event_time(const char* value,
-    size_t size) {
-  _has_bits_[0] |= 0x00000002u;
-  event_time_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:small_world.SM_Event.event_time)
-}
-inline std::string* SM_Event::_internal_mutable_event_time() {
-  _has_bits_[0] |= 0x00000002u;
-  return event_time_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* SM_Event::release_event_time() {
-  // @@protoc_insertion_point(field_release:small_world.SM_Event.event_time)
-  if (!_internal_has_event_time()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000002u;
-  return event_time_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void SM_Event::set_allocated_event_time(std::string* event_time) {
-  if (event_time != nullptr) {
-    _has_bits_[0] |= 0x00000002u;
-  } else {
-    _has_bits_[0] &= ~0x00000002u;
-  }
-  event_time_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), event_time,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:small_world.SM_Event.event_time)
-}
-inline std::string* SM_Event::unsafe_arena_release_event_time() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:small_world.SM_Event.event_time)
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  _has_bits_[0] &= ~0x00000002u;
-  return event_time_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      GetArena());
-}
-inline void SM_Event::unsafe_arena_set_allocated_event_time(
-    std::string* event_time) {
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  if (event_time != nullptr) {
-    _has_bits_[0] |= 0x00000002u;
-  } else {
-    _has_bits_[0] &= ~0x00000002u;
-  }
-  event_time_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      event_time, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:small_world.SM_Event.event_time)
 }
 
 #ifdef __GNUC__

@@ -1,2 +1,2 @@
-#include "../src/generated/Message.pb.h"
+#include "../src/generated/Message.pb.cc"
 

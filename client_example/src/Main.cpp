@@ -10,7 +10,7 @@
 #include <netinet/in.h>
 #include "./generated/Message.pb.cc"  
 #define PORT 8888
-#define TICK_INTERVAL 500
+#define TICK_INTERVAL 500000
 
 uint64_t timeSinceEpochMillisec() {
     using namespace std::chrono;
@@ -38,13 +38,13 @@ int main()
     while (true){
         small_world::SM_Event tick_event;
         tick_event.set_event_type("tick");
-        tick_event.set_event_time(std::to_string(timeSinceEpochMillisec()));
+        tick_event.set_event_time((timeSinceEpochMillisec()));
         std::string serialized_event;
         tick_event.SerializeToString(&serialized_event);
         if (send(sock, serialized_event.c_str(), serialized_event.size(), 0) != serialized_event.size())  {
             std::cout << "Error sending tick message" << std::endl;
         }
-        usleep(TICK_INTERVAL * 5000); 
+        usleep(TICK_INTERVAL); 
     }
     close(sock);
     return 0;
