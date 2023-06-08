@@ -23,9 +23,11 @@ class RobotState {
     public:
         uint64_t initial_time = 0;
         uint64_t current_time = 0;
-        uint64_t wait_time = 2100;
         std::map<std::string, std::shared_ptr<RobotState>> next_states;
         std::shared_ptr<StateMachine> owner;
+        void resetime(const small_world::SM_Event& e){
+            initial_time = (e.event_time());   
+        }
         uint64_t get_elapsed() {
             return current_time - initial_time;
         }
@@ -40,12 +42,9 @@ class RobotState {
         virtual void tick(const small_world::SM_Event& e) {
             current_time = (e.event_time());
             if (initial_time == 0) {  initial_time = (e.event_time()); }
-            if(get_elapsed() > wait_time ){
-                initial_time = (e.event_time());   
-            }
-            decide_action(get_elapsed());
+            decide_action( get_elapsed(), e);
         }
-        virtual void decide_action(uint64_t elapsed) = 0;
+        virtual void decide_action(uint64_t elapsed, const small_world::SM_Event& e) = 0;
 };
 
 
@@ -78,7 +77,11 @@ class TimedState : public RobotState {
         void set_name(const std::string & state_name){ this->state_name = state_name; }
         void set_verb(const std::string & verb_name) { this->verb_name = verb_name; }
         void set_owner(std::shared_ptr<StateMachine> state_machine) {owner = state_machine;}
-        virtual void decide_action(uint64_t duration){
+        virtual void decide_action(uint64_t duration, const small_world::SM_Event& e){
+            if(duration > time_to_wait + 100) { 
+                RobotState::resetime(e); 
+                duration = RobotState::get_elapsed();
+            }
             if (duration < time_to_wait) {
                 cout <<  verb_name << std::endl;
                 return;
